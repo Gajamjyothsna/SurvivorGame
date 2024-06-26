@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(joystick.Direction.x, 0, joystick.Direction.y) * 1 * Time.deltaTime;
             if (movement.magnitude > 0)
             {
-                playerAnimatorController.SetFloat("moveAmount", 1);
+                playerAnimatorController.SetFloat("moveAmount", 0.5f);
                 // Rotate the player to face the direction of movement
                 Quaternion rotation = Quaternion.LookRotation(movement, Vector3.up);
                 // Adjust rotation speed as needed
@@ -42,6 +42,16 @@ public class PlayerController : MonoBehaviour
             }
             transform.Translate(movement, Space.World);
         }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            playerAnimatorController.SetFloat("moveAmount", 1);
+        }
+    }
+
+    public void Attack()
+    {
+        Debug.Log("Attack");
+        playerAnimatorController.SetFloat("moveAmount", 1);
     }
     #endregion
 }
