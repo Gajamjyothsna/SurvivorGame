@@ -11,47 +11,37 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Canvas inputCanvas;
     private bool isJoystick;
     #endregion
-    // Start is called before the first frame update
+
+    #region Private Variables
+
     void Start()
     {
         EnableJoyStickInput();
     }
-
     private void EnableJoyStickInput()
     {
         isJoystick = true;
         inputCanvas.gameObject.SetActive(true);
     }
-
-    // Update is called once per frame
     void Update()
     {
-       /* 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(horizontal, 0, vertical) * 1 * Time.deltaTime;
-        if(movement.magnitude > 0)
-        {
-            playerAnimatorController.SetFloat("moveAmount", 1);
-        }
-        if(movement.magnitude ==0)
-        {
-            playerAnimatorController.SetFloat("moveAmount", 0);
-        }
-        transform.Translate(movement);*/
-
         if(isJoystick)
         {
             Vector3 movement = new Vector3(joystick.Direction.x, 0, joystick.Direction.y) * 1 * Time.deltaTime;
             if (movement.magnitude > 0)
             {
                 playerAnimatorController.SetFloat("moveAmount", 1);
+                // Rotate the player to face the direction of movement
+                Quaternion rotation = Quaternion.LookRotation(movement, Vector3.up);
+                // Adjust rotation speed as needed
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 100*Time.deltaTime);
             }
             if (movement.magnitude == 0)
             {
                 playerAnimatorController.SetFloat("moveAmount", 0);
             }
-            transform.Translate(movement);
+            transform.Translate(movement, Space.World);
         }
     }
+    #endregion
 }
