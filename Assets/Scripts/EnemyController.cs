@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region Private Variables
+    [SerializeField] private Animator _enemyAnimatorController;
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    #region Private Methods
+    private void Start()
     {
-        
+        _enemyAnimatorController.SetFloat("enemyAction", .5f);
     }
+    #endregion
 }
