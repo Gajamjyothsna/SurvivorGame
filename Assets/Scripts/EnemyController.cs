@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     #region Private Methods
     private void Start()
     {
-        _enemyAnimatorController.SetFloat("enemyAction", .5f);
+        _enemyAnimatorController.SetFloat("enemyAction", 0f);
     }
     #endregion
 }
