@@ -6,6 +6,9 @@ namespace SurvivorGame
 {
     public class Coin : MonoBehaviour
     {
+        #region Private Variables
+        [SerializeField] private int increasePlayerHealth = 10;
+        #endregion
         #region Private Methods
         private void OnCollisionEnter(Collision collision)
         {
@@ -13,6 +16,7 @@ namespace SurvivorGame
             {
                 gameObject.SetActive(false);
                 //Increase the Player Health;
+                UIController.Instance.UpdatePlayerHealth(increasePlayerHealth, true);
             }
         }
         #endregion

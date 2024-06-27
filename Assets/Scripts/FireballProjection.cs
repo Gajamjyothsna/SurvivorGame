@@ -6,14 +6,14 @@ namespace SurvivorGame
 {
     public class FireballProjection : MonoBehaviour
     {
-        public Transform target; // The player or the target to throw the ball at
-        public float angle = 45f; // Angle of the throw in degrees
-        public float gravity = 9.81f; // Gravity force
+        [SerializeField] private Transform target; // The player or the target to throw the ball at
+        [SerializeField] private float angle = 45f; // Angle of the throw in degrees
+        [SerializeField] private float gravity = 9.81f; // Gravity force
         private Rigidbody _fireBallProjection;
-        public float speed = 1f; // Initial speed of the fireball
+        [SerializeField] private float speed = 1f; // Initial speed of the fireball
         // Start is called before the first frame update
-
-        public void Awake()
+        [SerializeField] private int damagePlayerHealth;
+         private void Awake()
         {
             target = GameObject.Find("Player").transform;
         }
@@ -48,10 +48,17 @@ namespace SurvivorGame
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.tag == "Player")
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Default"))
             {
-                gameObject.SetActive(false);
-                //Add coin dropping
+                if (collision.gameObject.tag == "Player")
+                {
+                    // Handle collision with the player or other default layer objects
+                    Debug.Log("Bullet hit: " + collision.gameObject.name);
+                    // Apply damage or other effects here
+                    UIController.Instance.UpdatePlayerHealth(10, false);
+                    // Disable or destroy the bullet
+                    gameObject.SetActive(false);
+                }
             }
         }
     }

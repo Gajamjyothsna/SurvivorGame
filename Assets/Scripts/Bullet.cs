@@ -26,11 +26,12 @@ namespace SurvivorGame
             if (collision.gameObject.tag == "Enemy")
             {
                 Debug.Log("Hit Enemy");
+                UIController.Instance.UpdatePlayerHealth(10, true);
                 if (gameObject.activeInHierarchy)
                 {
                     gameObject.SetActive(false);
                     collision.gameObject.SetActive(false);
-                    GameObject obj = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.Coin, collision.transform.position, Quaternion.identity);
+                    GameObject obj = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.Coin , collision.transform.position + new Vector3(0, .5f, 0), Quaternion.Euler(45,0,0));
                 }
             }
         }

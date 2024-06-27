@@ -91,7 +91,7 @@ namespace SurvivorGame
 
         private IEnumerator DisableFireBall(GameObject fireBallObject)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(1.5f);
             fireBallObject.SetActive(false);
         }
         #endregion
