@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private VariableJoystick joystick;
     [SerializeField] private Canvas inputCanvas;
     private bool isJoystick;
+    private bool isAttacking;
     #endregion
 
     #region Private Variables
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(joystick.Direction.x, 0, joystick.Direction.y) * 1 * Time.deltaTime;
             if (movement.magnitude > 0)
             {
-                playerAnimatorController.SetFloat("moveAmount", 0.5f);
+                playerAnimatorController.SetFloat("playerMove", 1f);
                 // Rotate the player to face the direction of movement
                 Quaternion rotation = Quaternion.LookRotation(movement, Vector3.up);
                 // Adjust rotation speed as needed
@@ -38,20 +38,30 @@ public class PlayerController : MonoBehaviour
             }
             if (movement.magnitude == 0)
             {
-                playerAnimatorController.SetFloat("moveAmount", 0);
+                playerAnimatorController.SetFloat("playerMove", 0);
             }
             transform.Translate(movement, Space.World);
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+      /*  if(Input.GetKeyDown(KeyCode.Space))
         {
-            playerAnimatorController.SetFloat("moveAmount", 1);
-        }
+            playerAnimatorController.SetFloat("playerMove", 1);
+        }*/
     }
 
     public void Attack()
     {
         Debug.Log("Attack");
-        playerAnimatorController.SetFloat("moveAmount", 1);
+        isAttacking = true;
+        playerAnimatorController.SetBool("isAttacking", true);
+        StartCoroutine(ResetAttackState());
+    }
+
+    private IEnumerator ResetAttackState()
+    {
+        // Wait for the attack animation to complete
+        yield return new WaitForSeconds(1.0f); // Adjust the time based on your animation length
+        isAttacking = false;
+        playerAnimatorController.SetBool("isAttacking", false);
     }
     #endregion
 }
