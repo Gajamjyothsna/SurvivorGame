@@ -6,16 +6,19 @@ namespace SurvivorGame
 {
     public class FireballProjection : MonoBehaviour
     {
-        private Transform target; // The player or the target to throw the ball at
+        public Transform target; // The player or the target to throw the ball at
         public float angle = 45f; // Angle of the throw in degrees
         public float gravity = 9.81f; // Gravity force
         private Rigidbody _fireBallProjection;
         public float speed = 1f; // Initial speed of the fireball
         // Start is called before the first frame update
-        public void InitializeFireBall()
+
+        public void Awake()
         {
             target = GameObject.Find("Player").transform;
-
+        }
+        public void InitializeFireBall()
+        {
             _fireBallProjection = GetComponent<Rigidbody>();
             // Calculate and set the initial velocity
             Vector3 velocity = CalculateVelocity();
@@ -47,7 +50,7 @@ namespace SurvivorGame
         {
             if(collision.gameObject.tag == "Player")
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

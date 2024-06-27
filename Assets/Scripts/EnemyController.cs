@@ -47,16 +47,27 @@ namespace SurvivorGame
         {
             isAttacking = true; // Set attacking state to true
             yield return new WaitForSeconds(5f);
+            _enemyAnimatorController.SetFloat("enemyAction", 0.5f);
+            ThrowFireBall();
+        }
+
+        public void ThrowFireBall()
+        {
+            Debug.Log("Throw FireBall");
 
             GameObject fireBallObject = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.FireBall, _fireBallPoint.position, Quaternion.identity);
-            if (fireBallObject != null)
+            if (fireBallObject != null && fireBallObject.activeInHierarchy)
             {
-                _enemyAnimatorController.SetFloat("enemyAction", 0.5f);
+                fireBallObject.transform.SetParent(null); // Correctly detach from parent
                 fireBallObject.GetComponent<FireballProjection>().InitializeFireBall();
+                StartCoroutine(DisableFireBall(fireBallObject));
             }
+        }
 
-            yield return new WaitForSeconds(1f); // Optional: Additional wait time after attack before moving again
-            isAttacking = false; // Reset attacking state after the attack
+        private IEnumerator DisableFireBall(GameObject fireBallObject)
+        {
+            yield return new WaitForSeconds(3f);
+            fireBallObject.SetActive(false);
         }
         #endregion
     }
