@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyAnimatorController: {fileID: 3742656802131716631}
+  _fireBallPoint: {fileID: 5448084711143902126}
 --- !u!136 &3079439144184469700
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -92,6 +93,37 @@ CapsuleCollider:
   m_Height: 1.4
   m_Direction: 1
   m_Center: {x: 0, y: 0.70162404, z: 0}
+--- !u!1 &3421274053593797727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5448084711143902126}
+  m_Layer: 0
+  m_Name: FireBallPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5448084711143902126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3421274053593797727}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0, z: 0.213}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7990263322439155957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8599257222691323709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,11 +188,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mutant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: e3b1d6b3436b00e44a65928076c29f97, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: e3b1d6b3436b00e44a65928076c29f97, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5448084711143902126}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3b1d6b3436b00e44a65928076c29f97, type: 3}
+--- !u!4 &7990263322439155957 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: e3b1d6b3436b00e44a65928076c29f97, type: 3}
+  m_PrefabInstance: {fileID: 8599257222691323709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8132387806330165462 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e3b1d6b3436b00e44a65928076c29f97, type: 3}

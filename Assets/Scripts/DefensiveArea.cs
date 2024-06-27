@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefensiveArea : MonoBehaviour
+namespace SurvivorGame
 {
-    [SerializeField] private string EnemyTag;
-
-    private void OnTriggerEnter(Collider other)
+    public class DefensiveArea : MonoBehaviour
     {
-        if(other.tag == EnemyTag)
+        [SerializeField] private string EnemyTag;
+
+        private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Enemy is detected");
+            if (other.tag == EnemyTag)
+            {
+                Debug.Log("Enemy is detected");
+            }
         }
     }
 }
