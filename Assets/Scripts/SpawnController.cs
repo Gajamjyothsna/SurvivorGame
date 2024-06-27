@@ -45,12 +45,6 @@ namespace SurvivorGame
                     // Instantiate the enemy prefab at the random position with no rotation
                     GameObject obj = ObjectPooling.Instance.SpawnFromPool(_enemyType, randomPosition, Quaternion.identity);
 
-                    obj.SetActive(true);
-
-                    Debug.Log("activeof the enemy" + obj.activeInHierarchy);
-
-                    obj.transform.SetParent(spawnPoint);
-
                     totalEnemiesSpawned++;
                 }
             }
