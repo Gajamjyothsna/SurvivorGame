@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Attack");
         isAttacking = true;
+        isJoystick = false;
         playerAnimatorController.SetBool("isAttacking", true);
         StartCoroutine(ResetAttackState());
     }
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1.0f); // Adjust the time based on your animation length
         isAttacking = false;
         playerAnimatorController.SetBool("isAttacking", false);
+        isJoystick = true;
     }
     #endregion
 }
