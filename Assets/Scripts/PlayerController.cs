@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator playerAnimatorController;
     [SerializeField] private VariableJoystick joystick;
     [SerializeField] private Canvas inputCanvas;
+    [SerializeField] private GameObject sword;
     private bool isJoystick;
     private bool isAttacking;
     #endregion
@@ -42,16 +43,13 @@ public class PlayerController : MonoBehaviour
             }
             transform.Translate(movement, Space.World);
         }
-      /*  if(Input.GetKeyDown(KeyCode.Space))
-        {
-            playerAnimatorController.SetFloat("playerMove", 1);
-        }*/
     }
 
     public void Attack()
     {
         Debug.Log("Attack");
         isAttacking = true;
+        sword.SetActive(true);
         isJoystick = false;
         playerAnimatorController.SetBool("isAttacking", true);
         StartCoroutine(ResetAttackState());
@@ -64,6 +62,7 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;
         playerAnimatorController.SetBool("isAttacking", false);
         isJoystick = true;
+        sword.SetActive(false);
     }
     #endregion
 }
