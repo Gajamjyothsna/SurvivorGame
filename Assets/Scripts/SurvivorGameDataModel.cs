@@ -11,7 +11,9 @@ namespace SurvivorGame
         public enum PoolObjectType
         {
             FireBall,
-            Enemy
+            Enemy,
+            Bullet,
+            Coin
         }
 
         [System.Serializable]

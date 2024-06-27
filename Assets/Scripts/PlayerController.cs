@@ -10,7 +10,10 @@ namespace SurvivorGame
         [SerializeField] private Animator playerAnimatorController;
         [SerializeField] private VariableJoystick joystick;
         [SerializeField] private Canvas inputCanvas;
-        [SerializeField] private GameObject sword;
+        [SerializeField] private GameObject _playerWeapon;
+        [SerializeField] private Transform _bulletPoint;
+        [SerializeField] private int damage;
+
         private bool isJoystick;
         private bool isAttacking;
         #endregion
@@ -51,20 +54,41 @@ namespace SurvivorGame
         {
             Debug.Log("Attack");
             isAttacking = true;
-            sword.SetActive(true);
+            _playerWeapon.SetActive(true);
             isJoystick = false;
-            playerAnimatorController.SetBool("isAttacking", true);
+           playerAnimatorController.SetBool("isAttacking", true);
+          //  playerAnimatorController.SetFloat("playerMove", 1);
             StartCoroutine(ResetAttackState());
         }
 
         private IEnumerator ResetAttackState()
         {
+            yield return new WaitForSeconds(.5f);
+            FireBullet();
             // Wait for the attack animation to complete
-            yield return new WaitForSeconds(1.0f); // Adjust the time based on your animation length
+            yield return new WaitForSeconds(.5f); // Adjust the time based on your animation length
             isAttacking = false;
             playerAnimatorController.SetBool("isAttacking", false);
             isJoystick = true;
-            sword.SetActive(false);
+            _playerWeapon.SetActive(false);
+        }
+
+        public void FireBullet()
+        {
+            GameObject obj = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.Bullet, _bulletPoint.position, Quaternion.identity);
+            Bullet bulletComponent = obj.GetComponent<Bullet>();
+            if (bulletComponent != null)
+            {
+                bulletComponent.InitalizeBullet(transform.forward, damage);
+            }
+
+            StartCoroutine(DisableBulletAfterSomeTime(obj));
+        }
+
+        IEnumerator DisableBulletAfterSomeTime(GameObject obj)
+        {
+            yield return new WaitForSeconds(3f);
+            obj.SetActive(false);
         }
         #endregion
     }

@@ -30,7 +30,7 @@ namespace SurvivorGame
             foreach (Transform spawnPoint in _spawnPoints)
             {
                 // Determine the number of enemies to spawn at this spawn point (between 1 and 10)
-                int enemiesToSpawn = Random.Range(1, 10);
+                int enemiesToSpawn = Random.Range(1, 2);
 
                 for (int i = 0; i < enemiesToSpawn; i++)
                 {

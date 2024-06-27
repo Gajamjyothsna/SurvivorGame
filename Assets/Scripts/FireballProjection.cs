@@ -51,6 +51,7 @@ namespace SurvivorGame
             if(collision.gameObject.tag == "Player")
             {
                 gameObject.SetActive(false);
+                //Add coin dropping
             }
         }
     }

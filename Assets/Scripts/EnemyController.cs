@@ -11,7 +11,7 @@ namespace SurvivorGame
         [SerializeField] private Transform _fireBallPoint;
         private Transform _target;
         private bool isAttacking = false; // To track if the enemy is currently attacking
-        private float moveSpeed = 2f;
+        private float moveSpeed = .2f;
         private float separationDistance = 5f; // Minimum distance between enemies
         private bool canAttack = true;
         #endregion
@@ -42,7 +42,6 @@ namespace SurvivorGame
                 transform.LookAt(_target);
                 transform.position += moveDirection.normalized * moveSpeed * Time.deltaTime;
                 isAttacking = false; // Reset attacking state when moving
-                Debug.Log("Walking state");
             }
             else if (distance <= 5f && canAttack)
             {
@@ -72,15 +71,14 @@ namespace SurvivorGame
             isAttacking = true; // Set attacking state to true
             yield return new WaitForSeconds(1f);
             _enemyAnimatorController.SetFloat("enemyAction", 0.5f);
-            yield return new WaitForSeconds(4f); // Time spent attacking
-            //ThrowFireBall();
+            yield return new WaitForSeconds(10f); // Time spent attacking
+            ThrowFireBall();
             isAttacking = false;
             canAttack = true; // Allow attacking again
         }
 
         public void ThrowFireBall()
         {
-            Debug.Log("Throw FireBall");
 
             GameObject fireBallObject = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.FireBall, _fireBallPoint.position, Quaternion.identity);
             if (fireBallObject != null && fireBallObject.activeInHierarchy)
