@@ -29,11 +29,19 @@ namespace SurvivorGame
                 UIController.Instance.UpdatePlayerHealth(10, true);
                 if (gameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(false);
-                    collision.gameObject.SetActive(false);
-                    GameObject obj = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.Coin , collision.transform.position + new Vector3(0, .5f, 0), Quaternion.Euler(45,0,0));
+                    StartCoroutine(ShowEnemyAnimation(collision.gameObject)); //To Show Enemy Die Animation
                 }
             }
+        }
+
+        private IEnumerator ShowEnemyAnimation(GameObject _enemyObject)
+        {
+            _enemyObject.GetComponent<Animator>().SetFloat("enemyAction", 1);
+            yield return new WaitForSeconds(5f);
+            _enemyObject.SetActive(false);
+            //Instantiating the Coinobject from pool
+            GameObject obj = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.Coin, _enemyObject.transform.position + new Vector3(0, .5f, 0), Quaternion.Euler(45, 0, 0));
+            gameObject.SetActive(false);
         }
         #endregion
     }

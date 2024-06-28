@@ -659,6 +659,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: ccec90a783e30c84b90e03f5f71ab261, type: 3}
   - soundType: 6
     audioClip: {fileID: 8300000, guid: c36442dadd0b17f46900a1332b778842, type: 3}
+  - soundType: 4
+    audioClip: {fileID: 8300000, guid: 8551f0cb08def234a9b03c7a78d141e3, type: 3}
 --- !u!1 &368406204
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,7 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947a217ea9d4f1b4b80f4996aac8560e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimatorController: {fileID: 377371216}
+  _playerAnimatorController: {fileID: 377371216}
   joystick: {fileID: 1992029889}
   inputCanvas: {fileID: 368406207}
   _playerWeapon: {fileID: 514352898}

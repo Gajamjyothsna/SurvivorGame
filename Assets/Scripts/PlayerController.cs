@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static SurvivorGame.SurvivorGameDataModel;
+using UnityEngine.Events;
 
 namespace SurvivorGame
 {
     public class PlayerController : MonoBehaviour
     {
         #region Private Variables
-        [SerializeField] private Animator playerAnimatorController;
+        [SerializeField] private Animator _playerAnimatorController;
         [SerializeField] private VariableJoystick joystick;
         [SerializeField] private Canvas inputCanvas;
         [SerializeField] private GameObject _playerWeapon;
@@ -26,6 +27,7 @@ namespace SurvivorGame
         void Start()
         {
             _audioSource = GetComponent<AudioSource>();
+            SurvivorGameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
             EnableJoyStickInput();
         }
         private void EnableJoyStickInput()
@@ -41,7 +43,7 @@ namespace SurvivorGame
                 Vector3 movement = new Vector3(joystick.Direction.x, 0, joystick.Direction.y) * 1 * Time.deltaTime;
                 if (movement.magnitude > 0)
                 {
-                    playerAnimatorController.SetFloat("playerMove", 1f);
+                    _playerAnimatorController.SetFloat("playerMove", 1f);
                     // Rotate the player to face the direction of movement
                     Quaternion rotation = Quaternion.LookRotation(movement, Vector3.up);
                     // Adjust rotation speed as needed
@@ -56,7 +58,7 @@ namespace SurvivorGame
                 }
                 if (movement.magnitude == 0)
                 {
-                    playerAnimatorController.SetFloat("playerMove", 0);
+                    _playerAnimatorController.SetFloat("playerMove", 0);
                 }
                 transform.Translate(movement, Space.World);
             }
@@ -68,7 +70,7 @@ namespace SurvivorGame
             isAttacking = true;
             _playerWeapon.SetActive(true);
             isJoystick = false;
-            playerAnimatorController.SetBool("isAttacking", true);
+            _playerAnimatorController.SetBool("isAttacking", true);
             StartCoroutine(ResetAttackState());
         }
 
@@ -79,7 +81,7 @@ namespace SurvivorGame
             // Wait for the attack animation to complete
             yield return new WaitForSeconds(.5f); // Adjust the time based on your animation length
             isAttacking = false;
-            playerAnimatorController.SetBool("isAttacking", false);
+            _playerAnimatorController.SetBool("isAttacking", false);
             isJoystick = true;
             _playerWeapon.SetActive(false);
         }
@@ -101,6 +103,25 @@ namespace SurvivorGame
         {
             yield return new WaitForSeconds(3f);
             obj.SetActive(false);
+        }
+
+        private void HandleGameStateChanged(GameState newGameState)
+        {
+            if(newGameState == GameState.GameOver)
+            {
+                _playerAnimatorController.SetTrigger("isDie");
+
+                StartCoroutine(ShowPlayerDieAnimation());
+            }
+        }
+
+        private IEnumerator ShowPlayerDieAnimation()
+        {
+            yield return new WaitForSeconds(3f);
+            if(this.gameObject.activeInHierarchy)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
         #endregion
     }
