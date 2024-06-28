@@ -31,3 +31,7 @@ Gameplay Flow:
 7. The player character&#39;s health bar will decrease when hit by enemy attacks.
 8. The game continues until the player character&#39;s health bar is empty.
 9. The player&#39;s performance is measured based on the number of enemies defeated and the number of coins collected.
+
+### **Design Patterns**
+- Object Pooling
+- Singleton
