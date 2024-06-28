@@ -37,6 +37,7 @@ namespace SurvivorGame
         {
             _target = GameObject.Find("Player").transform;
             _enemyAnimatorController.SetFloat("enemyAction", 0f);
+            SoundManager.Instance.PlaySound(_audiSource, SurvivorGameDataModel.SoundType.EnemyRoar);
         }
 
        
@@ -51,12 +52,11 @@ namespace SurvivorGame
                 return; // Don't move if attacking
             Vector3 direction = _target.position - transform.position;
             float distance = direction.magnitude;
-
+            transform.LookAt(_target);
             if (distance > 5f)
             {
                 _enemyAnimatorController.SetFloat("enemyAction", 0.25f);
                 Vector3 moveDirection = GetSeparationVector() + direction.normalized;
-                transform.LookAt(_target);
                 transform.position += moveDirection.normalized * moveSpeed * Time.deltaTime;
                 isAttacking = false; // Reset attacking state when moving
             }
@@ -101,7 +101,7 @@ namespace SurvivorGame
             if (fireBallObject != null && fireBallObject.activeInHierarchy)
             {
                 fireBallObject.transform.SetParent(null); // Correctly detach from parent
-                SoundManager.Instance.PlaySound(_audiSource, SurvivorGameDataModel.SoundType.EnemyHit);
+                SoundManager.Instance.PlaySound(_audiSource, SurvivorGameDataModel.SoundType.EnemyRoar);
                 fireBallObject.GetComponent<FireballProjection>().InitializeFireBall(this.gameObject);
                 StartCoroutine(DisableFireBall(fireBallObject));
             }
@@ -124,6 +124,7 @@ namespace SurvivorGame
         private IEnumerator ShowEnemyAnimation()
         {
             _enemyAnimatorController.SetFloat("enemyAction", 1);
+            SoundManager.Instance.PlaySound(_audiSource, SurvivorGameDataModel.SoundType.EnemyDie);
             yield return new WaitForSeconds(3f);
             gameObject.SetActive(false);
             //Instantiating the Coinobject from pool

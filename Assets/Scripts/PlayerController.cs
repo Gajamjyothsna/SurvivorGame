@@ -55,6 +55,7 @@ namespace SurvivorGame
                         SoundManager.Instance.PlaySound(_audioSource, SoundType.PlayerWalk);
                         isWalkingSoundPlaying = true;
                     }
+                    _playerWeapon.SetActive(false);
                 }
                 if (movement.magnitude == 0)
                 {
@@ -62,6 +63,7 @@ namespace SurvivorGame
                     SoundManager.Instance.PlaySound(_audioSource, SoundType.None);
                     if (_audioSource.clip == null) _audioSource.Stop();
                     isWalkingSoundPlaying = false;
+                    _playerWeapon.SetActive(false);
                 }
                 transform.Translate(movement, Space.World);
             }

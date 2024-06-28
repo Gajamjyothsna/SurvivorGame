@@ -51,6 +51,7 @@ namespace SurvivorGame
             PlayerDie,
             EnemyDie,
             EnemyHit,
+            EnemyRoar,
             BackGroundMusic,
             CoinCollect,
             PlayerHit
