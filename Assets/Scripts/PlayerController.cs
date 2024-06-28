@@ -17,6 +17,7 @@ namespace SurvivorGame
 
         private bool isJoystick;
         private bool isAttacking;
+        private bool isWalkingSoundPlaying;
         #endregion
 
         #region Private Variables
@@ -43,6 +44,13 @@ namespace SurvivorGame
                     Quaternion rotation = Quaternion.LookRotation(movement, Vector3.up);
                     // Adjust rotation speed as needed
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 100 * Time.deltaTime);
+
+                    // Play the walking sound if not already playing
+                    if (!isWalkingSoundPlaying)
+                    {
+                        SoundManager.Instance.PlaySound(SoundType.PlayerWalk);
+                        isWalkingSoundPlaying = true;
+                    }
                 }
                 if (movement.magnitude == 0)
                 {

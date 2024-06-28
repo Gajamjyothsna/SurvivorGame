@@ -52,6 +52,7 @@ namespace SurvivorGame
 
         public void PlaySound(SoundType soundType)
         {
+            Debug.Log("Soundtype :" + soundType);
             if (_soundDict.ContainsKey(soundType))
             {
                 _audioSource.PlayOneShot(_soundDict[soundType]);
@@ -62,13 +63,13 @@ namespace SurvivorGame
             }
         }
 
-        public void PlayBackgroundMusic(SoundType soundType)
+        public void PlayBackgroundMusic(AudioSource audioSource, SoundType soundType)
         {
             if (_soundDict.ContainsKey(soundType))
             {
-                _audioSource.clip = _soundDict[soundType];
-                _audioSource.loop = true;
-                _audioSource.Play();
+                audioSource.clip = _soundDict[soundType];
+                audioSource.loop = true;
+                audioSource.Play();
             }
             else
             {

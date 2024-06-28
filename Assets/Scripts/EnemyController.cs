@@ -84,6 +84,7 @@ namespace SurvivorGame
             if (fireBallObject != null && fireBallObject.activeInHierarchy)
             {
                 fireBallObject.transform.SetParent(null); // Correctly detach from parent
+              //  SoundManager.Instance.PlaySound(SurvivorGameDataModel.SoundType.EnemyHit);
                 fireBallObject.GetComponent<FireballProjection>().InitializeFireBall();
                 StartCoroutine(DisableFireBall(fireBallObject));
             }
