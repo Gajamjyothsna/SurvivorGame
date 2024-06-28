@@ -31,6 +31,7 @@ namespace SurvivorGame
         [Header("Health UI Components")]
         [SerializeField] private Slider _playerHealthSlider;
         [SerializeField] private TextMeshProUGUI _coinAmountTMP;
+        [SerializeField] private GameObject _gameOverUI;
         private int _currentPlayerHealth;
 
         #endregion
@@ -94,6 +95,12 @@ namespace SurvivorGame
             if (SurvivorGameManager.Instance.CurrentGameState == SurvivorGameDataModel.GameState.GameOver) return;
             _coinCollectionAmount += value;
             _coinAmountTMP.text = _coinCollectionAmount.ToString();
+        }
+
+        public void PlayAgain()
+        {
+            SurvivorGameManager.Instance.SetPlayAgain();
+            _gameOverUI.SetActive(false);
         }
         #endregion
     }

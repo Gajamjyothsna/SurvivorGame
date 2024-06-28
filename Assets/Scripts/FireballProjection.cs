@@ -57,7 +57,7 @@ namespace SurvivorGame
                     // Handle collision with the player or other default layer objects
                     Debug.Log("Bullet hit: " + collision.gameObject.name);
                     // Apply damage or other effects here
-                    UIController.Instance.UpdatePlayerHealth(10, false);
+                    UIController.Instance.UpdatePlayerHealth(1, false);
                     // Disable or destroy the bullet
                     gameObject.SetActive(false);
                 }

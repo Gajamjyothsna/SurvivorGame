@@ -46,5 +46,10 @@ namespace SurvivorGame
             OnGameStateChanged?.Invoke(GameState.GameOver);
         }
 
+        public void SetPlayAgain()
+        {
+            CurrentGameState = GameState.Playing;
+        }
+
     }
 }
