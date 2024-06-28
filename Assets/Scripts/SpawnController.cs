@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SurvivorGame.SurvivorGameDataModel;
 
 namespace SurvivorGame
 {
@@ -16,6 +17,7 @@ namespace SurvivorGame
         #region Private Methods
         private void Start()
         {
+            if (SurvivorGameManager.Instance.CurrentGameState == GameState.GameOver)  return;
             SpawnEnemies();
         }
 

@@ -25,5 +25,34 @@ namespace SurvivorGame
         }
         #endregion
 
+        #region Game States
+        [System.Serializable]
+        public enum  GameState
+        {
+            Playing,
+            GameOver
+        }
+        #endregion
+
+        #region SoundClass
+        [System.Serializable]
+        public class SoundClip
+        {
+            public SoundType soundType;
+            public AudioClip audioClip;
+        }
+
+        [System.Serializable]
+        public enum SoundType
+        {
+            PlayerWalk,
+            PlayerHurt,
+            PlayerDie,
+            EnemyDie,
+            EnemyHit,
+            BackGrounMusic,
+            CoinCollect
+        }
+        #endregion
     }
 }

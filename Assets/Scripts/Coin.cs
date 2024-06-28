@@ -12,11 +12,17 @@ namespace SurvivorGame
         #region Private Methods
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.gameObject.tag == "Player")
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Default"))
             {
-                gameObject.SetActive(false);
-                //Increase the Player Health;
-                UIController.Instance.UpdatePlayerHealth(increasePlayerHealth, true);
+                if (collision.gameObject.tag == "Player")
+                {
+                    // Handle collision with the player or other default layer objects
+                    Debug.Log("Bullet hit: " + collision.gameObject.name);
+                    // Apply damage or other effects here
+                    UIController.Instance.UpdatePlayerHealth(10, true);
+                    // Disable or destroy the bullet
+                    gameObject.SetActive(false);
+                }
             }
         }
         #endregion

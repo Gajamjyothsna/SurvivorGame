@@ -6,13 +6,16 @@ namespace SurvivorGame
 {
     public class DefensiveArea : MonoBehaviour
     {
-        [SerializeField] private string EnemyTag;
+        [SerializeField] private string CoinTag;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == EnemyTag)
+            if (other.tag == CoinTag)
             {
-                Debug.Log("Enemy is detected");
+                Debug.Log("Coin is detected");
+                other.gameObject.SetActive(false);
+                UIController.Instance.UpdatePlayerHealth(10, true);
+                UIController.Instance.UpdateCoinCollection(10);
             }
         }
     }

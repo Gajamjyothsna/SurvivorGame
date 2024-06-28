@@ -50,13 +50,14 @@ namespace SurvivorGame
         }
         private void Start()
         {
+            if (SurvivorGameManager.Instance.CurrentGameState == SurvivorGameDataModel.GameState.GameOver) return;
             _currentPlayerHealth = _maxPlayerHealth;
             DisplayPlayerHealth();
         }
 
         private void DisplayPlayerHealth()
         {
-            _playerHealthSlider.value = _currentPlayerHealth / _maxPlayerHealth;
+            _playerHealthSlider.value = (float)_currentPlayerHealth / _maxPlayerHealth;
         }
         #endregion
 
@@ -64,6 +65,7 @@ namespace SurvivorGame
         public void UpdatePlayerHealth(int damage, bool isIncrease)
         {
             Debug.Log("UpdatePlayerHealth");
+            if (SurvivorGameManager.Instance.CurrentGameState == SurvivorGameDataModel.GameState.GameOver) return;
             if (!isIncrease)
             {
                 Debug.Log("False");
@@ -87,7 +89,9 @@ namespace SurvivorGame
 
         public void UpdateCoinCollection(int value)
         {
+            if (SurvivorGameManager.Instance.CurrentGameState == SurvivorGameDataModel.GameState.GameOver) return;
             _coinCollectionAmount += value;
+            _coinAmountTMP.text = _coinCollectionAmount.ToString();
         }
         #endregion
     }

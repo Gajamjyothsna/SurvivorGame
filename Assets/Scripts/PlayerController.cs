@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SurvivorGame.SurvivorGameDataModel;
 
 namespace SurvivorGame
 {
@@ -31,6 +32,7 @@ namespace SurvivorGame
         }
         void Update()
         {
+            if (SurvivorGameManager.Instance.CurrentGameState == GameState.GameOver) return;
             if (isJoystick)
             {
                 Vector3 movement = new Vector3(joystick.Direction.x, 0, joystick.Direction.y) * 1 * Time.deltaTime;
@@ -56,8 +58,7 @@ namespace SurvivorGame
             isAttacking = true;
             _playerWeapon.SetActive(true);
             isJoystick = false;
-           playerAnimatorController.SetBool("isAttacking", true);
-          //  playerAnimatorController.SetFloat("playerMove", 1);
+            playerAnimatorController.SetBool("isAttacking", true);
             StartCoroutine(ResetAttackState());
         }
 
