@@ -21,7 +21,7 @@ b. Type 2: These enemies will spawn at random positions and will not move and th
 - Coins will be dropped by defeated enemies.
 - The player character can collect coins to earn points or currency for in-game upgrades.
 
-Gameplay Flow:
+### **Gameplay Flow**
 1. The game starts with the player character in the center of the screen.
 2. Enemies will start spawning at random positions and move towards the player character or project attacks.
 3. If an enemy enters the player character&#39;s radius, they will be defeated with bullets projected by the player character.
