@@ -102,6 +102,11 @@ namespace SurvivorGame
             SurvivorGameManager.Instance.SetPlayAgain();
             _gameOverUI.SetActive(false);
         }
+
+        public void GameOver()
+        {
+            _gameOverUI.SetActive(true);
+        }
         #endregion
     }
 
