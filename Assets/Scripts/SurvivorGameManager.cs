@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace SurvivorGame
         #endregion
 
         public GameState CurrentGameState { get; private set; } = GameState.Playing;
+        public Action<GameState> OnGameStateChanged;
 
         private void Awake()
         {
@@ -41,6 +43,7 @@ namespace SurvivorGame
         public void SetGameOver()
         {
             CurrentGameState = GameState.GameOver;
+            OnGameStateChanged?.Invoke(GameState.GameOver);
         }
 
     }

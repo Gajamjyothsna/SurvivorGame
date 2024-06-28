@@ -85,6 +85,8 @@ namespace SurvivorGame
             }
 
             DisplayPlayerHealth();
+
+            if (_currentPlayerHealth == 0) SurvivorGameManager.Instance.SetGameOver();
         }
 
         public void UpdateCoinCollection(int value)

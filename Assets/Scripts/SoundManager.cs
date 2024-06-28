@@ -23,11 +23,13 @@ namespace SurvivorGame
         }
         #endregion
 
+        #region Private Variables
         [Header("Sound Clips")]
         [SerializeField] private List<SoundClip> soundClips;
-
         private Dictionary<SoundType, AudioClip> _soundDict;
-        private AudioSource _audioSource;
+        #endregion
+
+        #region Private Methods
 
         private void Awake()
         {
@@ -41,21 +43,20 @@ namespace SurvivorGame
                 Destroy(gameObject);
             }
 
-            _audioSource = GetComponent<AudioSource>();
-
             _soundDict = new Dictionary<SoundType, AudioClip>();
             foreach (var soundClip in soundClips)
             {
                 _soundDict[soundClip.soundType] = soundClip.audioClip;
             }
         }
+        #endregion
 
-        public void PlaySound(SoundType soundType)
+        public void PlaySound(AudioSource audioSource, SoundType soundType)
         {
             Debug.Log("Soundtype :" + soundType);
             if (_soundDict.ContainsKey(soundType))
             {
-                _audioSource.PlayOneShot(_soundDict[soundType]);
+                audioSource.PlayOneShot(_soundDict[soundType]);
             }
             else
             {
@@ -76,10 +77,6 @@ namespace SurvivorGame
                 Debug.LogWarning("Background music type not found: " + soundType);
             }
         }
-
-        public void StopBackgroundMusic()
-        {
-            _audioSource.Stop();
-        }
+       
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using static SurvivorGame.SurvivorGameDataModel;
 
 namespace SurvivorGame
@@ -19,6 +20,12 @@ namespace SurvivorGame
         {
             if (SurvivorGameManager.Instance.CurrentGameState == GameState.GameOver)  return;
             SpawnEnemies();
+            SurvivorGameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
+        }
+
+        private void OnDestroy()
+        {
+            SurvivorGameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
         }
 
         private void SpawnEnemies()
@@ -61,6 +68,24 @@ namespace SurvivorGame
                 int randomIndex = Random.Range(i, _spawnPoints.Count);
                 _spawnPoints[i] = _spawnPoints[randomIndex];
                 _spawnPoints[randomIndex] = temp;
+            }
+        }
+
+        private void HandleGameStateChanged(GameState newGameState)
+        {
+            if (newGameState == GameState.GameOver)
+            {
+                DisableActiveEnemies();
+                Debug.Log("Disable The enemies");
+            }
+        }
+
+        private void DisableActiveEnemies()
+        {
+            var activeEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (var enemy in activeEnemies)
+            {
+                enemy.SetActive(false);
             }
         }
 

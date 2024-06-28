@@ -8,7 +8,9 @@ namespace SurvivorGame
     {
         #region Private Variables
         [SerializeField] private int increasePlayerHealth = 10;
+        [SerializeField] private AudioSource audioSource;
         #endregion
+
         #region Private Methods
         private void OnCollisionEnter(Collision collision)
         {
@@ -18,6 +20,7 @@ namespace SurvivorGame
                 {
                     // Handle collision with the player or other default layer objects
                     Debug.Log("Bullet hit: " + collision.gameObject.name);
+                    SoundManager.Instance.PlaySound(audioSource, SurvivorGameDataModel.SoundType.CoinCollect);
                     // Apply damage or other effects here
                     UIController.Instance.UpdatePlayerHealth(10, true);
                     // Disable or destroy the bullet

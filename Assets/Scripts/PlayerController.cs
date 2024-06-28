@@ -18,12 +18,14 @@ namespace SurvivorGame
         private bool isJoystick;
         private bool isAttacking;
         private bool isWalkingSoundPlaying;
+        private AudioSource _audioSource;
         #endregion
 
         #region Private Variables
 
         void Start()
         {
+            _audioSource = GetComponent<AudioSource>();
             EnableJoyStickInput();
         }
         private void EnableJoyStickInput()
@@ -48,7 +50,7 @@ namespace SurvivorGame
                     // Play the walking sound if not already playing
                     if (!isWalkingSoundPlaying)
                     {
-                        SoundManager.Instance.PlaySound(SoundType.PlayerWalk);
+                        SoundManager.Instance.PlaySound(_audioSource, SoundType.PlayerWalk);
                         isWalkingSoundPlaying = true;
                     }
                 }
@@ -84,11 +86,12 @@ namespace SurvivorGame
 
         public void FireBullet()
         {
-            GameObject obj = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.Bullet, _bulletPoint.position, Quaternion.identity);
+            GameObject obj = ObjectPooling.Instance.SpawnFromPool(PoolObjectType.Bullet, _bulletPoint.position, Quaternion.identity);
             Bullet bulletComponent = obj.GetComponent<Bullet>();
             if (bulletComponent != null)
             {
                 bulletComponent.InitalizeBullet(transform.forward, damage);
+                SoundManager.Instance.PlaySound(_audioSource, SoundType.PlayerHit);
             }
 
             StartCoroutine(DisableBulletAfterSomeTime(obj));

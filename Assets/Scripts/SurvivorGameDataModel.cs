@@ -51,7 +51,8 @@ namespace SurvivorGame
             EnemyDie,
             EnemyHit,
             BackGroundMusic,
-            CoinCollect
+            CoinCollect,
+            PlayerHit
         }
         #endregion
     }
