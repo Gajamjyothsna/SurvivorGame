@@ -28,6 +28,13 @@ namespace SurvivorGame
             {
                 Debug.Log("Hit Enemy");
                 UIController.Instance.UpdatePlayerHealth(10, true);
+                GameObject bulletPS = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.BulletPS, collision.transform.position, Quaternion.identity);
+                StartCoroutine(DelayPS());
+                IEnumerator DelayPS()
+                {
+                    yield return new WaitForSeconds(1f);
+                    bulletPS.SetActive(false);
+                }
                 gameObject.SetActive(false);
                 EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
                 if (enemyController != null)

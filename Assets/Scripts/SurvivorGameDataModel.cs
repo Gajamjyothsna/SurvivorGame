@@ -13,7 +13,9 @@ namespace SurvivorGame
             FireBall,
             Enemy,
             Bullet,
-            Coin
+            Coin,
+            BulletPS,
+            FireBallPS
         }
 
         [System.Serializable]

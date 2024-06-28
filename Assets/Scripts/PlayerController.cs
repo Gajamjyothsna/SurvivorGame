@@ -95,6 +95,7 @@ namespace SurvivorGame
         {
             GameObject obj = ObjectPooling.Instance.SpawnFromPool(PoolObjectType.Bullet, _bulletPoint.position, Quaternion.identity);
             Bullet bulletComponent = obj.GetComponent<Bullet>();
+            SoundManager.Instance.PlaySound(_audioSource, SoundType.PlayerHit);
             if (bulletComponent != null)
             {
                 bulletComponent.InitalizeBullet(transform.forward, damage);
@@ -115,6 +116,7 @@ namespace SurvivorGame
             if(newGameState == GameState.GameOver)
             {
                 _playerAnimatorController.SetTrigger("isDie");
+                SoundManager.Instance.PlaySound(_audioSource, SoundType.PlayerDie);
 
                 StartCoroutine(ShowPlayerDieAnimation());
             }

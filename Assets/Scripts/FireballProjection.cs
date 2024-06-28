@@ -14,9 +14,11 @@ namespace SurvivorGame
         // Start is called before the first frame update
         [SerializeField] private int damagePlayerHealth;
         private GameObject enemyObject;
+        private AudioSource audioSource;
          private void Awake()
         {
             target = GameObject.Find("Player").transform;
+            audioSource = this.GetComponent<AudioSource>();
         }
         public void InitializeFireBall(GameObject _enemyObject)
         {
@@ -58,10 +60,18 @@ namespace SurvivorGame
                     Debug.Log("Bullet hit: " + collision.gameObject.name);
                     // Apply damage or other effects here
                     UIController.Instance.UpdatePlayerHealth(1, false);
+                    SoundManager.Instance.PlaySound(audioSource, SurvivorGameDataModel.SoundType.PlayerHurt);
+                    GameObject fireBallPS = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.FireBallPS, collision.gameObject.transform.position, Quaternion.identity);
+                    StartCoroutine(DeactivePS());
                     // Disable or destroy the bullet
                     gameObject.SetActive(false);
                 }
             }
+        }
+
+        private IEnumerator DeactivePS()
+        {
+            yield return new WaitForSeconds(1f);
         }
     }
 }
