@@ -1,15 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using UnityEngine.Events;
 
 namespace SurvivorGame
 {
     public class EnemyController : MonoBehaviour
     {
         #region Private Variables
+        [Header("UI Components")]
         [SerializeField] private Animator _enemyAnimatorController;
         [SerializeField] private Transform _fireBallPoint;
         [SerializeField] private AudioSource _audiSource;
+        private bool isDead = false;
+        public bool IsDead
+        {
+            get
+            {
+                return isDead;
+            }
+            set
+            {
+                isDead = value;
+            }
+        }
         private Transform _target;
         private bool isAttacking = false; // To track if the enemy is currently attacking
         private float moveSpeed = .2f;
@@ -24,9 +39,10 @@ namespace SurvivorGame
             _enemyAnimatorController.SetFloat("enemyAction", 0f);
         }
 
+       
         private void Update()
         {
-            MoveTowardsPlayer();
+            if (_target != null && !IsDead) MoveTowardsPlayer();
         }
 
         private void MoveTowardsPlayer()
@@ -86,7 +102,7 @@ namespace SurvivorGame
             {
                 fireBallObject.transform.SetParent(null); // Correctly detach from parent
                 SoundManager.Instance.PlaySound(_audiSource, SurvivorGameDataModel.SoundType.EnemyHit);
-                fireBallObject.GetComponent<FireballProjection>().InitializeFireBall();
+                fireBallObject.GetComponent<FireballProjection>().InitializeFireBall(this.gameObject);
                 StartCoroutine(DisableFireBall(fireBallObject));
             }
         }
@@ -95,6 +111,24 @@ namespace SurvivorGame
         {
             yield return new WaitForSeconds(1.5f);
             fireBallObject.SetActive(false);
+        }
+
+        public void DeactivePlayer()
+        {
+            if (gameObject.activeInHierarchy)
+            {
+                StartCoroutine(ShowEnemyAnimation()); //To Show Enemy Die Animation
+            }
+        }
+
+        private IEnumerator ShowEnemyAnimation()
+        {
+            _enemyAnimatorController.SetFloat("enemyAction", 1);
+            yield return new WaitForSeconds(3f);
+            gameObject.SetActive(false);
+            //Instantiating the Coinobject from pool
+            GameObject obj = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.Coin, gameObject.transform.position + new Vector3(0, .5f, 0), Quaternion.Euler(45, 0, 0));
+            gameObject.SetActive(false);
         }
         #endregion
     }

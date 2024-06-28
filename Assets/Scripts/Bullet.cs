@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SurvivorGame
 {
@@ -27,22 +28,18 @@ namespace SurvivorGame
             {
                 Debug.Log("Hit Enemy");
                 UIController.Instance.UpdatePlayerHealth(10, true);
-                if (gameObject.activeInHierarchy)
+                gameObject.SetActive(false);
+                EnemyController enemyController = collision.gameObject.GetComponent<EnemyController>();
+                if (enemyController != null)
                 {
-                    StartCoroutine(ShowEnemyAnimation(collision.gameObject)); //To Show Enemy Die Animation
+                    enemyController.IsDead = true;
+                    enemyController.DeactivePlayer();
                 }
+                
             }
         }
 
-        private IEnumerator ShowEnemyAnimation(GameObject _enemyObject)
-        {
-            _enemyObject.GetComponent<Animator>().SetFloat("enemyAction", 1);
-            yield return new WaitForSeconds(5f);
-            _enemyObject.SetActive(false);
-            //Instantiating the Coinobject from pool
-            GameObject obj = ObjectPooling.Instance.SpawnFromPool(SurvivorGameDataModel.PoolObjectType.Coin, _enemyObject.transform.position + new Vector3(0, .5f, 0), Quaternion.Euler(45, 0, 0));
-            gameObject.SetActive(false);
-        }
+       
         #endregion
     }
 }

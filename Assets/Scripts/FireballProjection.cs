@@ -13,12 +13,14 @@ namespace SurvivorGame
         [SerializeField] private float speed = 1f; // Initial speed of the fireball
         // Start is called before the first frame update
         [SerializeField] private int damagePlayerHealth;
+        private GameObject enemyObject;
          private void Awake()
         {
             target = GameObject.Find("Player").transform;
         }
-        public void InitializeFireBall()
+        public void InitializeFireBall(GameObject _enemyObject)
         {
+            this.enemyObject = _enemyObject;
             _fireBallProjection = GetComponent<Rigidbody>();
             // Calculate and set the initial velocity
             Vector3 velocity = CalculateVelocity();
