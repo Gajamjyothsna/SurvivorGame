@@ -45,6 +45,7 @@ namespace SurvivorGame
         [System.Serializable]
         public enum SoundType
         {
+            None,
             PlayerWalk,
             PlayerHurt,
             PlayerDie,

@@ -54,6 +54,10 @@ namespace SurvivorGame
         public void PlaySound(AudioSource audioSource, SoundType soundType)
         {
             Debug.Log("Soundtype :" + soundType);
+            if (soundType == SoundType.None)
+            {
+                audioSource.clip = null;
+            }
             if (_soundDict.ContainsKey(soundType))
             {
                 audioSource.PlayOneShot(_soundDict[soundType]);
@@ -76,6 +80,11 @@ namespace SurvivorGame
             {
                 Debug.LogWarning("Background music type not found: " + soundType);
             }
+        }
+
+        public void StopSound(AudioSource _audioSource)
+        {
+            _audioSource.Stop();
         }
        
     }

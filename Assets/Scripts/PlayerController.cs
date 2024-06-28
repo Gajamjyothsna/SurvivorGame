@@ -59,6 +59,9 @@ namespace SurvivorGame
                 if (movement.magnitude == 0)
                 {
                     _playerAnimatorController.SetFloat("playerMove", 0);
+                    SoundManager.Instance.PlaySound(_audioSource, SoundType.None);
+                    if (_audioSource.clip == null) _audioSource.Stop();
+                    isWalkingSoundPlaying = false;
                 }
                 transform.Translate(movement, Space.World);
             }

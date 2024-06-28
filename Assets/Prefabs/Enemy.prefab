@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyAnimatorController: {fileID: 3742656802131716631}
   _fireBallPoint: {fileID: 5448084711143902126}
+  _audiSource: {fileID: 3137900966714832496}
 --- !u!136 &3079439144184469700
 CapsuleCollider:
   m_ObjectHideFlags: 0

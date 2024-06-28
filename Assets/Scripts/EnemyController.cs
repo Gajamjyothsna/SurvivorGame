@@ -9,6 +9,7 @@ namespace SurvivorGame
         #region Private Variables
         [SerializeField] private Animator _enemyAnimatorController;
         [SerializeField] private Transform _fireBallPoint;
+        [SerializeField] private AudioSource _audiSource;
         private Transform _target;
         private bool isAttacking = false; // To track if the enemy is currently attacking
         private float moveSpeed = .2f;
@@ -84,7 +85,7 @@ namespace SurvivorGame
             if (fireBallObject != null && fireBallObject.activeInHierarchy)
             {
                 fireBallObject.transform.SetParent(null); // Correctly detach from parent
-              //  SoundManager.Instance.PlaySound(SurvivorGameDataModel.SoundType.EnemyHit);
+                SoundManager.Instance.PlaySound(_audiSource, SurvivorGameDataModel.SoundType.EnemyHit);
                 fireBallObject.GetComponent<FireballProjection>().InitializeFireBall();
                 StartCoroutine(DisableFireBall(fireBallObject));
             }
